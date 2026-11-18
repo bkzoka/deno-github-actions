@@ -1,0 +1,13 @@
+{
+  "name": "@bkzoka/deno-compiler-demo",
+  "version": "1.0.0",
+  "exports": "./main.ts",
+  "tasks": {
+    "check": "deno check main.ts",
+    "run": "deno run --allow-read main.ts",
+    "compile": "deno compile --allow-read --target x86_64-unknown-linux-gnu --output dist/hello-deno main.ts"
+  },
+  "compilerOptions": {
+    "strict": true
+  }
+}

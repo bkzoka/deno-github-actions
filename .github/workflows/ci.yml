@@ -1,0 +1,36 @@
+name: Build Deno
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - name: Verificar tipos
+        run: deno task check
+
+      - name: Executar programa
+        run: deno task run
+
+      - name: Compilar para binário
+        run: deno task compile
+
+      - name: Enviar artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: hello-deno-linux
+          path: dist/hello-deno
