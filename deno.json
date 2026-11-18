@@ -1,11 +1,15 @@
 {
   "name": "@bkzoka/deno-compiler-demo",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "exports": "./main.ts",
   "tasks": {
     "check": "deno check main.ts",
-    "run": "deno run --allow-read main.ts",
-    "compile": "deno compile --allow-read --target x86_64-unknown-linux-gnu --output dist/hello-deno main.ts"
+    "run": "deno run --allow-net --allow-read main.ts",
+    "compile:no-fs": "deno compile --allow-net --output dist/no-fs main.ts",
+    "compile:no-net": "deno compile --allow-read --output dist/no-net main.ts",
+    "compile:locked": "deno compile --output dist/locked main.ts",
+    "compile": "deno task compile:no-fs && deno task compile:no-net && deno task compile:locked",
+    "test": "bash test.sh dist"
   },
   "compilerOptions": {
     "strict": true

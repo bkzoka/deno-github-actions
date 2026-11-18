@@ -23,14 +23,18 @@ jobs:
       - name: Verificar tipos
         run: deno task check
 
-      - name: Executar programa
-        run: deno task run
-
-      - name: Compilar para binário
+      - name: Compilar 3 variantes isoladas
         run: deno task compile
 
-      - name: Enviar artefato
+      - name: Testar isolamento de permissões
+        run: bash test.sh dist
+
+      - name: Enviar artefatos
         uses: actions/upload-artifact@v7
         with:
-          name: hello-deno-linux
-          path: dist/hello-deno
+          name: deno-perm-bins
+          path: |
+            dist/no-fs
+            dist/no-net
+            dist/locked
+            test.sh
